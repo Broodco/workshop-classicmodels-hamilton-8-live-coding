@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Controllers;
+namespace App\Controllers;
 
+use App\Models\User;
 use Exception;
-use Models\User;
 
 class AuthController
 {
@@ -36,9 +36,9 @@ class AuthController
 
     public function showRegistrationForm()
     {
-        include 'views/layout/header.view.php';
-        include 'views/register.view.php';
-        include 'views/layout/footer.view.php';
+        include 'app/views/layout/header.view.php';
+        include 'app/views/register.view.php';
+        include 'app/views/layout/footer.view.php';
     }
 
     public function login(string $usernameInput, string $passwordInput)
@@ -72,9 +72,9 @@ class AuthController
 
     public function showLoginForm()
     {
-        include 'views/layout/header.view.php';
-        include 'views/login.view.php';
-        include 'views/layout/footer.view.php';
+        include 'app/views/layout/header.view.php';
+        include 'app/views/login.view.php';
+        include 'app/views/layout/footer.view.php';
     }
 
     public function logout()

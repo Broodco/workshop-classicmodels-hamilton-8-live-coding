@@ -64,9 +64,9 @@ require_once 'vendor/autoload.php';
 Lorsque vous souhaitez utiliser une classe en PHP, vous aller désormais devoir lui attribuer un _namespace_, c'est à dire un genre de préfixe dans leur noms qui permet de ne pas avoir de conflits entre deux classes qui porteraient le même nom. _(Imaginez le nombre de classes qui s'appellent **User** ou **Database** sur le net!)_
 
 Pour cela, chaque classe fera partie d'un namespace donc, que je répartis ici en fonction du nom du dossier dans lequel elle se situe : 
-* `Controllers\ProductController`
-* `Controllers\PageController`
-* `Models\Product`
+* `App\Controllers\ProductController`
+* `App\Controllers\PageController`
+* `App\Models\Product`
 
 Dans le fichier de votre classe, vous devrez donc indiquer le namespace en début de fichier ainsi que les classes qu'elle utilise, en spécifiant leur namespace grâce à l'instruction _use_ :
 
@@ -74,17 +74,17 @@ Dans le fichier de votre classe, vous devrez donc indiquer le namespace en débu
 <?php
 declare(strict_types=1);
 
-namespace Controllers;
+namespace App\Controllers;
 
 use Exception;
-use Models\Product;
+use App\Models\Product;
 
 class ProductController
 { 
     ...
 ```
 
-Enfin, n'oubliez pas de spécifier les _use_ dans votre index.php, car sinon pas moyen d'appeler les controllers : 
+Enfin, n'oubliez pas de spécifier les _use_ dans votre index.php, car sinon pas moyen d'appeler les controllers :
 
 ```php
 <?php
@@ -92,9 +92,9 @@ declare(strict_types=1);
 
 require_once 'vendor/autoload.php';
 
-use Controllers\AuthController;
-use Controllers\PageController;
-use Controllers\ProductController;
+use App\Controllers\AuthController;
+use App\Controllers\PageController;
+use App\Controllers\ProductController;
 
 session_start();
 
@@ -116,3 +116,18 @@ Et voilà, plus qu'à réessayer, et si tout est bien configuré, ça devrait fo
 En cas d'erreur, vérifiez le fichier _vendor/composer/autoload_classmap.php_, car celui-ci contient la liste des classes qui seront autoloadées dans votre projet. Si les "chemins" ne correspondent pas à la structure de votre projet, l'erreur doit provenir de là ! (Par exemple un namespace Controllers (avec _s_) et un dossier /controller (sans _s_)).
 
 ![img.png](assets/classmap.png)
+
+## 6 - L'autoload automatique ?? Plus besoin de faire tourner `dump-autoload` ? Je signe !
+
+Comme précisé dans la [documentation de Composer](https://www.php-fig.org/psr/psr-4/), il est possible de configurer son autoloading de façon à ne plus jamais devoir faire tourner la commande `composer dump-autoload` !
+
+Pour cela, il faut utiliser l'option PSR-4. (Vous vous souvenez des PSR ? Les "normes" de PHP sont de retour !)
+
+De mon coté, j'ai bougé toutes les classes dans un dossier _app_ et ai préfixé leur namespace avec _App\_, ce qui donne : 
+`namespace App\Controllers;` au lieu de `namespace Controllers;`.
+
+Ce qui est bien, c'est que si votre App a un nom particulier, vous pouvez appeler le namespace "lié" à votre dossier app comme vous voulez, comme par exemple `MaSuperApplicationQuiVaMeRendreRiche\Controllers` !
+
+Seul souci, et bien il va falloir refactorer à nouveau pour mettre à jour le namespace de toutes mes classes, et les bouger dans un dosser app/, mettre des majuscules aux dossiers qui ont un namespace (comme `Controllers` au lieu de `controllers`) mais c'est un faible prix pour ne jamais redevoir faire tourner `dump-autoload`! ;)
+
+Vous pouvez voir le résultat dans la version mise à jour du projet dans ce repo-même !

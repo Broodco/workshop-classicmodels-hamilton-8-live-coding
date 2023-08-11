@@ -4,9 +4,9 @@ declare(strict_types=1);
 require_once 'vendor/autoload.php';
 session_start();
 
-use Controllers\AuthController;
-use Controllers\PageController;
-use Controllers\ProductController;
+use App\Controllers\AuthController;
+use App\Controllers\PageController;
+use App\Controllers\ProductController;
 
 try {
     $url_path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), "/");

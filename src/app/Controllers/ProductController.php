@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Controllers;
+namespace App\Controllers;
 
+use App\Models\Product;
 use Exception;
-use Models\Product;
 
 class ProductController
 {
@@ -14,9 +14,9 @@ class ProductController
             $products = (new Product())->findAll(20);
 
             // 3 - Affichage de la liste des produits
-            include 'views/layout/header.view.php';
-            include 'views/index.view.php';
-            include 'views/layout/footer.view.php';
+            include 'app/views/layout/header.view.php';
+            include 'app/views/index.view.php';
+            include 'app/views/layout/footer.view.php';
         } catch (Exception $e) {
             print_r($e->getMessage());
         }
@@ -33,9 +33,9 @@ class ProductController
             }
 
             // 3 - Afficher la page
-            include 'views/layout/header.view.php';
-            include 'views/product.view.php';
-            include 'views/layout/footer.view.php';
+            include 'app/views/layout/header.view.php';
+            include 'app/views/product.view.php';
+            include 'app/views/layout/footer.view.php';
 
         } catch (Exception $e) {
             (new PageController())->page_500($e->getMessage());
