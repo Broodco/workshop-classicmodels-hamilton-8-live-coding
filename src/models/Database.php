@@ -6,7 +6,7 @@ namespace Models;
 use PDO;
 use PDOStatement;
 
-class Database
+abstract class Database
 {
     private PDO $pdo;
 

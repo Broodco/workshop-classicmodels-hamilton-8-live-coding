@@ -38,7 +38,7 @@ class ProductController
             include 'views/layout/footer.view.php';
 
         } catch (Exception $e) {
-            print_r($e->getMessage());
+            (new PageController())->page_500($e->getMessage());
         }
     }
 }

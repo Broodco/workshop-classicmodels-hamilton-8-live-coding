@@ -2,12 +2,11 @@
 declare(strict_types=1);
 
 require_once 'vendor/autoload.php';
+session_start();
 
 use Controllers\AuthController;
 use Controllers\PageController;
 use Controllers\ProductController;
-
-session_start();
 
 try {
     $url_path = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), "/");
@@ -20,6 +19,7 @@ try {
             $productController->index();
             break;
         case "product":
+            if (empty($_GET['productCode'])) throw new Exception("Please provide a product code");
             $productController = new ProductController();
             $productController->show($_GET['productCode']);
             break;
