@@ -17,7 +17,7 @@ class AuthController
 
     public function register(string $usernameInput, string $emailInput, string $passwordInput)
     {
-        if (empty($usernameInput) || empty($email) || empty($passwordInput)) {
+        if (empty($usernameInput) || empty($emailInput) || empty($passwordInput)) {
             throw new Exception('Formulaire non complet');
         }
 
